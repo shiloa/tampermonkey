@@ -59,7 +59,8 @@ const getHeatmapForValue = (value) => {
     scores.sort((x, y) => x.score >= y.score)
 
     // calculate max score
-    const maxScore = scores[scores.length - 1].score
+    const scoreList = scores.map(s => s.score)
+    const maxScore = Math.max(...scoreList)
 
     // update visual ranks
     for (let i = 0; i < scores.length ; i++) {
@@ -71,6 +72,8 @@ const getHeatmapForValue = (value) => {
         document.querySelector(`#${scoreId}`).style['background-color'] = heatmap.bg;
         document.querySelector(`#${scoreId}`).style.color = heatmap.fg;
         document.querySelector(`#${scoreId}`).style['border-radius'] = '2px';
+
+        // console.debug(`debug HN heatmap: score=${score}, maxScore=${maxScore}, rank=${rank}, heatmap=${heatmap}`)
     }
 
 })();
